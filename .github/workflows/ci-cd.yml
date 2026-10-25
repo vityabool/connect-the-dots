@@ -82,8 +82,8 @@ jobs:
   deploy:
     name: Deploy to Azure Static Web Apps
     needs: test
-    # Pull requests from forks have no access to the deployment secret, so they are only tested.
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    # Pull requests from forks and from Dependabot have no access to the deployment secret, so they are only tested.
+    if: (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) && github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -126,7 +126,7 @@ jobs:
 
   close-preview:
     name: Remove preview environment
-    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: Close preview
