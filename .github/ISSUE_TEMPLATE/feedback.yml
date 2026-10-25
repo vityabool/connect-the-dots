@@ -1,0 +1,45 @@
+name: Complaint or feedback
+description: Tell us what is confusing, annoying or wrong, including the wording of the guide or legal pages
+title: "[Feedback]: "
+labels: ["feedback", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Honest feedback and complaints are welcome here, where everybody can see them.
+
+        **Please keep in mind**
+        - This is a free project provided **as is, without support or warranty**. We read feedback when time allows. We cannot promise a reply, a change or a deadline, and we cannot give individual help.
+        - Issues are **public**. Do not post personal data. **Privacy requests** (access, correction, deletion of data) must go by email, not here: see [SUPPORT.md](https://github.com/vityabool/connect-the-dots/blob/main/SUPPORT.md#privacy-requests). **Security problems** need a [private advisory](https://github.com/vityabool/connect-the-dots/security/advisories/new).
+        - Please be kind and specific. Abusive messages will be removed ([Code of Conduct](https://github.com/vityabool/connect-the-dots/blob/main/CODE_OF_CONDUCT.md)).
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you submit
+      options:
+        - label: My message contains no personal data, secrets or security vulnerability details.
+          required: true
+  - type: dropdown
+    id: topic
+    attributes:
+      label: What is this about?
+      options:
+        - Usability (hard to understand or use)
+        - Accessibility (a barrier for some people)
+        - Wording of the guide, the landing page or the game
+        - The privacy policy or terms of service
+        - Reliability or performance
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: feedback
+    attributes:
+      label: What would you like us to know?
+      description: What happened, what did you expect, and how did it affect you?
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Any suggestion?

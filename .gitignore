@@ -1,0 +1,13 @@
+node_modules/
+dist/
+coverage/
+*.log
+.env
+.env.*
+api/local.settings.json
+__azurite_db_*.json
+__blobstorage__/
+__queuestorage__/
+__azurite__/
+.azurite/
+.swa/

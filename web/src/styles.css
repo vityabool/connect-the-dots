@@ -1,0 +1,552 @@
+:root {
+  --bg: #0f172a;
+  --fg: #f8fafc;
+  --muted: #94a3b8;
+  --ok: #34d399;
+  --down: #f87171;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color: var(--fg);
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+.home {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 4rem 1rem;
+  text-align: center;
+}
+
+.home h1 {
+  margin: 0;
+  font-size: 2.5rem;
+}
+
+.home h2 {
+  margin: 0.25rem 0 1.5rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.status-ok {
+  color: var(--ok);
+}
+
+.status-down {
+  color: var(--down);
+}
+
+.status-checking {
+  color: var(--muted);
+}
+
+a {
+  color: #7dd3fc;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  background: #2563eb;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.page {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 4rem;
+}
+
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: 1.75rem;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.error {
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: #7f1d1d;
+}
+
+.notice {
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: #14532d;
+}
+
+.cards,
+.people {
+  list-style: none;
+  margin: 1rem 0;
+  padding: 0;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0.75rem 0;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background: #1e293b;
+}
+
+.card-column {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  letter-spacing: 0.1em;
+}
+
+.code-big {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.badge {
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+}
+
+.badge-expired {
+  background: #7f1d1d;
+}
+
+.people li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #334155;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.5rem;
+  margin: 1.5rem 0;
+}
+
+.form input,
+.form textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #475569;
+  border-radius: 0.5rem;
+  background: #0b1220;
+  color: var(--fg);
+  font: inherit;
+}
+
+button.button {
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+}
+
+button.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button-secondary {
+  background: #334155;
+}
+
+.button-danger {
+  background: #b91c1c;
+}
+
+.link-button {
+  border: 0;
+  background: none;
+  color: #fca5a5;
+  cursor: pointer;
+  font: inherit;
+}
+
+.inline-link {
+  padding: 0;
+  text-decoration: underline;
+}
+
+.inline-link:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.field-error {
+  color: #fca5a5;
+  font-size: 0.9rem;
+}
+
+select {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #475569;
+  border-radius: 0.5rem;
+  background: #0b1220;
+  color: var(--fg);
+  font: inherit;
+}
+
+.join-form {
+  max-width: 22rem;
+  margin: 1.5rem auto;
+  text-align: left;
+}
+
+.code-input {
+  font-size: 2rem;
+  letter-spacing: 0.4em;
+  text-align: center;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.confirm {
+  text-align: right;
+}
+
+.confirm p {
+  margin: 0 0 0.5rem;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 1rem 0;
+  padding: 0;
+}
+
+.chips li {
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  background: #334155;
+}
+
+.warning {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  background: #78350f;
+}
+
+.topic-list {
+  list-style: none;
+  margin: 1rem 0;
+  padding: 0;
+}
+
+.topic-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #334155;
+}
+
+/* The name takes the space that is left and is cut with "…"; the buttons keep their size. */
+.topic-name {
+  display: flex;
+  gap: 0.35em;
+  min-width: 0;
+}
+
+.topic-title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.topic-count {
+  flex: none;
+  white-space: nowrap;
+}
+
+.topic-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.topic-merge {
+  width: 11rem;
+  max-width: 100%;
+  text-overflow: ellipsis;
+}
+
+/* On a narrow screen the selector and the buttons go under the name, on one line. */
+@media (max-width: 40rem) {
+  .topic-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .topic-merge {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+  }
+
+  .topic-actions .button,
+  .topic-actions .link-button {
+    flex: none;
+  }
+}
+
+/* On a very narrow screen there is no room for one line: the buttons wrap. */
+@media (max-width: 24rem) {
+  .topic-actions {
+    flex-wrap: wrap;
+  }
+
+  .topic-merge {
+    flex-basis: 100%;
+  }
+}
+
+.filter {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0.25rem 0 0.75rem;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #475569;
+  border-radius: 0.5rem;
+  background: #0b1220;
+  color: var(--fg);
+  font: inherit;
+}
+
+/* Network graph */
+.network {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Colors, strokes and opacity of the graph are SVG attributes (see NetworkGraph.tsx); CSS only animates. */
+.network .edge {
+  stroke-dasharray: 1;
+  animation: draw-in 0.9s ease-out;
+}
+
+.network .ring {
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes draw-in {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .network .edge,
+  .network .ring {
+    animation: none;
+  }
+}
+
+/* Big-screen Timer screen */
+.screen {
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 0.9rem 2rem 1.25rem;
+}
+
+.screen-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.screen-head h1 {
+  margin: 0;
+  font-size: 1.75rem;
+}
+
+.screen-tools {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.screen-grid {
+  display: grid;
+  grid-template-columns: minmax(22rem, 5fr) 7fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 60rem) {
+  .screen-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.clock {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: clamp(3.5rem, min(10vw, 17vh), 9rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.clock-up {
+  color: #f87171;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+.clock-state {
+  min-height: 1.75rem;
+  font-size: 1.4rem;
+  color: var(--muted);
+}
+
+.clock-state strong {
+  color: #f87171;
+}
+
+.time-up-note {
+  margin: 0.25rem 0 0;
+  font-size: 1.1rem;
+}
+
+.rules {
+  font-size: clamp(0.95rem, 2.1vh, 1.35rem);
+  line-height: 1.4;
+  padding-left: 1.5rem;
+  margin: 0.25rem 0;
+}
+
+.join-box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin: 0.75rem 0 1rem;
+  padding: 1rem 1.25rem;
+  border-radius: 1rem;
+  background: #1e293b;
+}
+
+.join-url {
+  font-size: clamp(1.1rem, min(2.4vw, 3.4vh), 2.2rem);
+  font-weight: 700;
+  /* Break only when a long address does not fit, never in the middle of a short one. */
+  overflow-wrap: anywhere;
+}
+
+.join-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: clamp(1.8rem, min(4.5vw, 7vh), 3.5rem);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+
+.qr {
+  flex: none;
+  width: clamp(110px, 17vh, 190px);
+  height: clamp(110px, 17vh, 190px);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: #fff;
+}
+
+.qr svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.counters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 1.3rem;
+  color: var(--muted);
+}
+
+.counters strong {
+  color: var(--fg);
+  font-size: 2rem;
+}
+
+.celebrate {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #4ade80;
+}
+
+.timer-readout {
+  font-size: 1.1rem;
+}
+
+.clock-small {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.timer-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}

@@ -1,0 +1,34 @@
+/* Keyboard focus must be clearly visible on the dark background. */
+:focus-visible {
+  outline: 3px solid #facc15;
+  outline-offset: 2px;
+}
+
+/* Comfortable touch targets (about 44 px) for phones. */
+select,
+textarea,
+input:not([type="checkbox"]):not([type="range"]),
+.link-button,
+.tab {
+  min-height: 2.75rem;
+}
+
+.link-button {
+  padding: 0 0.5rem;
+}
+
+.checkbox input {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Respect the "reduce motion" setting everywhere. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

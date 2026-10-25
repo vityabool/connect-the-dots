@@ -1,0 +1,261 @@
+/* Results views (big screen) */
+.results {
+  max-width: 90rem;
+  margin: 0 auto;
+}
+
+.view-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.75rem 0 1rem;
+}
+
+.tab {
+  padding: 0.5rem 1rem;
+  border: 1px solid #475569;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--fg);
+  font: inherit;
+  cursor: pointer;
+}
+
+.tab.active {
+  background: #2563eb;
+  border-color: #2563eb;
+  font-weight: 700;
+}
+
+.frame {
+  padding: 1rem 1.25rem 1.5rem;
+  border-radius: 1rem;
+  background: var(--bg);
+}
+
+/* On the big screen the whole graph must be visible without scrolling: limit its height to what is left of the screen. */
+.frame .network {
+  max-height: calc(100vh - 19rem);
+}
+
+.frame-title {
+  margin: 0 0 0.75rem;
+  font-size: 1.4rem;
+}
+
+.empty {
+  font-size: 1.3rem;
+  color: var(--muted);
+}
+
+.view-split {
+  display: grid;
+  grid-template-columns: minmax(18rem, 2fr) 3fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 60rem) {
+  .view-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.25rem;
+  margin: 0.5rem 0;
+  padding: 0;
+  list-style: none;
+  font-size: 1rem;
+}
+
+.legend li,
+.link-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.swatch {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.25rem;
+  flex: none;
+}
+
+.bars {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bar-row {
+  display: grid;
+  grid-template-columns: 11rem 1fr 3rem;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.4rem 0.5rem;
+  border: 2px solid transparent;
+  border-radius: 0.5rem;
+  background: none;
+  color: var(--fg);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.bar-row.selected {
+  border-color: #facc15;
+}
+
+.bar-track {
+  height: 1.4rem;
+  border-radius: 0.4rem;
+  background: #1e293b;
+  overflow: hidden;
+}
+
+.bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: 0.4rem;
+}
+
+.bar-count {
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-align: right;
+}
+
+.hero {
+  font-size: 1.6rem;
+}
+
+.leaderboard {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1.15rem;
+}
+
+.leaderboard th,
+.leaderboard td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #334155;
+  text-align: left;
+}
+
+.link-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 1.15rem;
+}
+
+.link-list li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #334155;
+}
+
+.link-people {
+  font-weight: 700;
+}
+
+.link-topic {
+  color: #7dd3fc;
+}
+
+.group-card {
+  margin: 0.75rem 0;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background: #1e293b;
+}
+
+.group-card h3 {
+  margin: 0 0 0.25rem;
+}
+
+.group-card p {
+  margin: 0;
+}
+
+.group-alone {
+  border: 2px solid #facc15;
+}
+
+.name-list {
+  columns: 2;
+  margin: 0;
+  padding-left: 1.25rem;
+  font-size: 1.1rem;
+}
+
+.matrix {
+  display: block;
+  margin: 0 auto;
+}
+
+/* Colors of the matrix are SVG attributes (see MatrixView.tsx) so exported images keep them. */
+
+.replay-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.replay-controls input[type="range"] {
+  flex: 1;
+}
+
+.replay-count {
+  font-variant-numeric: tabular-nums;
+  min-width: 5rem;
+  text-align: right;
+}
+
+.replay-now {
+  min-height: 1.8rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.summary-card {
+  max-width: 48rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.summary-card h2 {
+  font-size: 2rem;
+  margin-top: 0;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.summary-grid dt {
+  color: var(--muted);
+}
+
+.summary-grid dd {
+  margin: 0;
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.summary-highlights {
+  font-size: 1.4rem;
+}
+
+.summary-highlights span {
+  display: block;
+}

@@ -1,0 +1,136 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, closed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-cd-${{ github.event_name == 'pull_request' && github.event.pull_request.number || 'main' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  test:
+    name: Lint, test, build
+    if: github.event_name != 'pull_request' || github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run lint
+      - name: Check third-party licenses
+        run: npm run licenses -- --check
+      - run: npm run typecheck
+      - run: npm test
+
+      - name: Integration tests (Table Storage emulator)
+        run: |
+          npx azurite --silent --skipApiVersionCheck --location "$RUNNER_TEMP/azurite" --tableHost 127.0.0.1 &
+          for i in $(seq 1 30); do
+            curl -s -o /dev/null http://127.0.0.1:10002/ && break
+            sleep 1
+          done
+          npm run test:integration -w api
+
+      - name: Build
+        env:
+          # Used for canonical links, the sitemap and social previews of the public pages.
+          SITE_URL: ${{ vars.SWA_URL }}
+        run: npm run build
+
+      # Drives every endpoint through the real Azure Functions host (routing, headers, status codes).
+      # Azurite keeps running from the step above.
+      - name: API end-to-end (Functions host + Table Storage emulator)
+        run: |
+          cp api/local.settings.json.example api/local.settings.json
+          (cd api && npx func start --port 7072 > "$RUNNER_TEMP/func.log" 2>&1 &)
+          for i in $(seq 1 60); do
+            curl -s http://localhost:7072/api/health | grep -q '"ok"' && break
+            sleep 2
+          done
+          node scripts/e2e-api.mjs || { echo "--- Functions host log ---"; tail -50 "$RUNNER_TEMP/func.log"; exit 1; }
+
+      # Prebuilt site for Azure Static Web Apps: the web app and the bundled Functions API.
+      - name: Assemble site
+        run: |
+          mkdir -p site/app site/api
+          cp -r web/dist/. site/app/
+          cp api/host.json site/api/
+          cp -r api/dist site/api/dist
+          # The API is already bundled, so the deployed package.json has no scripts or dependencies
+          # (otherwise the deploy action tries to build it again).
+          echo '{"name":"ctd-api","version":"1.0.0","main":"dist/index.js"}' > site/api/package.json
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: site
+          path: site
+          retention-days: 7
+
+  deploy:
+    name: Deploy to Azure Static Web Apps
+    needs: test
+    # Pull requests from forks have no access to the deployment secret, so they are only tested.
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: site
+          path: site
+
+      - name: Deploy
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: upload
+          app_location: site/app
+          api_location: site/api
+          skip_app_build: true
+
+  smoke:
+    name: Smoke test production
+    needs: deploy
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check home page and API
+        env:
+          SITE_URL: ${{ vars.SWA_URL }}
+        run: |
+          for attempt in $(seq 1 18); do
+            home=$(curl -s -o /dev/null -w '%{http_code}' "$SITE_URL/" || true)
+            api=$(curl -s -o /dev/null -w '%{http_code}' "$SITE_URL/api/health" || true)
+            echo "attempt $attempt: / -> $home, /api/health -> $api"
+            if [ "$home" = "200" ] && [ "$api" = "200" ]; then exit 0; fi
+            sleep 10
+          done
+          echo "Smoke test failed" >&2
+          exit 1
+
+  close-preview:
+    name: Remove preview environment
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Close preview
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          action: close

@@ -1,0 +1,66 @@
+name: Bug report
+description: Something does not work as described
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this.
+
+        **Please read first**
+        - This is a free project provided **as is, without support or warranty**. Reports are read when time allows; a reply, a fix or a deadline is **not guaranteed**.
+        - Issues are **public**. Do not include personal data (real names of participants, email addresses, game codes of running games), secrets, or security vulnerabilities. For security problems use a [private security advisory](https://github.com/vityabool/connect-the-dots/security/advisories/new).
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you submit
+      options:
+        - label: I searched the existing issues and did not find this problem.
+          required: true
+        - label: This report contains no personal data, secrets or security vulnerability details.
+          required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe the problem and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Numbered steps are the most helpful. Use made-up names and topics.
+      placeholder: |
+        1. Open ...
+        2. Click ...
+        3. See ...
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where does it happen?
+      options:
+        - Joining or playing (phone)
+        - Facilitator pages (games, participants, topics)
+        - Timer screen (big screen)
+        - Results views or image export
+        - Landing page, guide or legal pages
+        - Running my own copy (deployment, build)
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Device and browser
+      description: For example "iPhone 15, Safari 18" or "Windows 11, Chrome 130".
+    validations:
+      required: true
+  - type: textarea
+    id: extra
+    attributes:
+      label: Screenshots or anything else
+      description: Screenshots are very helpful. Please hide any real names.

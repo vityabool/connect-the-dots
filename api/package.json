@@ -1,0 +1,22 @@
+{
+  "name": "@ctd/api",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --platform=node --target=node20 --format=cjs --external:@azure/functions-core --sourcemap --outfile=dist/index.js",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "e2e": "node ../scripts/e2e-api.mjs",
+    "test:integration": "cross-env TABLES_TEST_CONNECTION=UseDevelopmentStorage=true vitest run --hookTimeout=60000 --testTimeout=60000",
+    "start": "func start --port 7072"
+  },
+  "dependencies": {
+    "@azure/data-tables": "^13.3.2",
+    "@azure/functions": "^4.16.5"
+  },
+  "devDependencies": {
+    "cross-env": "^10.1.0"
+  },
+  "license": "MIT"
+}

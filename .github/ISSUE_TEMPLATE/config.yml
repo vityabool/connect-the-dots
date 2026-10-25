@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability (private report)
+    url: https://github.com/vityabool/connect-the-dots/security/advisories/new
+    about: Please do not open a public issue for security problems. Use a private security advisory (see SECURITY.md).
+  - name: Privacy request about your data (access, correction, deletion)
+    url: https://github.com/vityabool/connect-the-dots/blob/main/SUPPORT.md#privacy-requests
+    about: Issues are public. Privacy requests are handled by email, not here (see SUPPORT.md).
+  - name: Questions about running a game
+    url: https://github.com/vityabool/connect-the-dots/blob/main/docs/ADMIN_GUIDE.md
+    about: The facilitator guide answers most questions. There is no support service (see SUPPORT.md).

@@ -1,0 +1,9 @@
+{
+  "_comment": "Fill in the details of the person or organisation that operates the public service. They are shown on the Privacy Policy and Terms of Service pages. Leave a value empty and the page shows a visible 'to be completed' marker instead. Run `npm run check:site` to list what is still missing.",
+  "operatorName": "Viktor Tsykunov",
+  "operatorAddress": "",
+  "contactEmail": "game@connect-the-dots.top",
+  "governingLaw": "the Czech Republic",
+  "supervisoryAuthority": "the Czech Office for Personal Data Protection (Úřad pro ochranu osobních údajů, www.uoou.gov.cz)",
+  "effectiveDate": "2026-10-25"
+}

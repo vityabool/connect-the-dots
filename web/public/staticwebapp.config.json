@@ -1,0 +1,87 @@
+{
+  "routes": [
+    {
+      "route": "/.well-known/security.txt",
+      "rewrite": "/security.txt"
+    },
+    {
+      "route": "/.auth/login/github",
+      "statusCode": 404
+    },
+    {
+      "route": "/admin",
+      "allowedRoles": [
+        "authenticated"
+      ]
+    },
+    {
+      "route": "/admin/*",
+      "allowedRoles": [
+        "authenticated"
+      ]
+    },
+    {
+      "route": "/api/manage/*",
+      "allowedRoles": [
+        "authenticated"
+      ]
+    },
+    {
+      "route": "/login",
+      "redirect": "/.auth/login/aad"
+    },
+    {
+      "route": "/logout",
+      "redirect": "/.auth/logout"
+    },
+    {
+      "route": "/how-to-play",
+      "rewrite": "/how-to-play/index.html"
+    },
+    {
+      "route": "/privacy",
+      "rewrite": "/privacy/index.html"
+    },
+    {
+      "route": "/terms",
+      "rewrite": "/terms/index.html"
+    },
+    {
+      "route": "/assets/*",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    }
+  ],
+  "responseOverrides": {
+    "401": {
+      "redirect": "/.auth/login/aad?post_login_redirect_uri=.referrer",
+      "statusCode": 302
+    }
+  },
+  "globalHeaders": {
+    "Content-Security-Policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' data: blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=()"
+  },
+  "navigationFallback": {
+    "rewrite": "/app.html",
+    "exclude": [
+      "/api/*",
+      "/.auth/*",
+      "/.well-known/*",
+      "/assets/*",
+      "/*.{css,js,svg,png,jpg,jpeg,webp,ico,webmanifest,json,xml,txt,html}"
+    ]
+  },
+  "platform": {
+    "apiRuntime": "node:20"
+  },
+  "mimeTypes": {
+    ".webmanifest": "application/manifest+json",
+    ".txt": "text/plain",
+    ".webp": "image/webp"
+  }
+}
