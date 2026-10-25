@@ -8,6 +8,14 @@ updates:
     groups:
       minor-and-patch:
         update-types: [minor, patch]
+    ignore:
+      # typescript-eslint does not support TypeScript 7 yet (its peer range stops below 6.1); remove this
+      # rule when it does.
+      - dependency-name: typescript
+        update-types: ['version-update:semver-major']
+      # The type definitions follow the Node.js version the code runs on (20 on Azure, 22 in CI).
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
   - package-ecosystem: github-actions
     directory: /
     schedule:
