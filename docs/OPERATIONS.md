@@ -16,7 +16,8 @@ How the system is deployed, run and checked. For the facilitator's guide see [AD
 ## Delivery
 
 - Every push to `main` runs `.github/workflows/ci-cd.yml`: lint, type-check, unit tests, **storage integration tests against the Azurite emulator**, build, **end-to-end checks of every API endpoint through the real Functions host** (`scripts/e2e-api.mjs`), then deploy to Azure, then a smoke test of the home page and `/api/health`. A failing step stops the pipeline, so a broken commit is not deployed.
-- A pull request gets a temporary **preview site** (removed when the PR closes; up to 3 at once). **Previews share the production data**, so delete test games when done.
+- Pull requests from forks and from Dependabot are tested but never deployed (they cannot read the deployment secret).
+- A pull request from this repository gets a temporary **preview site** (removed when the PR closes; up to 3 at once). **Previews share the production data**, so delete test games when done.
 - **Rollback:** revert the bad commit (or re-run the workflow on the last good commit). The pipeline redeploys in about 3 minutes.
 - Repository secret `AZURE_STATIC_WEB_APPS_API_TOKEN` is the deployment token; repository variable `SWA_URL` is used by the smoke test. To rotate the token: reset it in the Azure portal (Static Web App > Manage deployment token), then `gh secret set AZURE_STATIC_WEB_APPS_API_TOKEN`.
 - Infrastructure is code: `infra/main.bicep` and `infra/deploy.sh` (re-runnable; keeps the existing signing secret).
