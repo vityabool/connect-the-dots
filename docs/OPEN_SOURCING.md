@@ -67,8 +67,8 @@ Two options:
   git push -u origin main
   ```
 
-  4. Set the secrets and variables (see [DEPLOYMENT.md](DEPLOYMENT.md), section 3) and the labels (`bug`, `proposal`,
-     `feedback`, `needs-triage`), apply the settings in section 3 below, and wait for the first pipeline run to be green. The
+  4. Set the secrets and variables (see [DEPLOYMENT.md](DEPLOYMENT.md), section 3) and the labels (`bug`, `enhancement`,
+     `feedback`, `needs-triage`; the proposal form applies `enhancement`), apply the settings in section 3 below, and wait for the first pipeline run to be green. The
      Static Web App is deployed with a token and has no repository linked, so nothing needs to be re-linked in Azure.
   5. Make the repository public (section 4), and delete the archived private repository last (the GitHub CLI needs
      `gh auth refresh -s delete_repo` for that).
@@ -106,7 +106,8 @@ In **Settings** of the new repository:
   collaborators**; default workflow permissions → **Read repository contents**.
 - **Deployment secrets** are not shared with workflows from forks. The pipeline already skips the deploy job for them
   (`ci-cd.yml`), but keep the approval setting.
-- **Labels:** make sure `bug`, `proposal`, `feedback`, `needs-triage` exist (the issue forms apply them).
+- **Labels:** make sure `bug`, `enhancement` (used by the proposal form), `feedback`, `needs-triage` exist (the issue forms
+  apply them). `bug` and `enhancement` come with a new repository; create `feedback` and `needs-triage` yourself.
 - **Social preview:** upload `web/public/og-image.png`.
 - Pin the repository on your profile if you like, and add the **About** link to the live site.
 
