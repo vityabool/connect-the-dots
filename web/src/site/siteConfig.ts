@@ -18,7 +18,7 @@ export const SITE = {
      * Set to true when the repository is made public. While false the pages say "open source, coming soon"
      * and do not link to the (private) repository, so visitors never meet a "404 Not Found".
      */
-    public: false,
+    public: true,
   },
   license: {
     spdx: 'MIT',
