@@ -37,7 +37,7 @@ See [docs/OPERATIONS.md](docs/OPERATIONS.md) for how it is run and checked.
 | D2 | Admin sign-in | **Preconfigured Microsoft Entra ID provider** (`/.auth/login/aad`) | Decided and verified in the [Microsoft docs](https://learn.microsoft.com/en-us/azure/static-web-apps/authentication-authorization): the preconfigured provider lets any Microsoft account sign in, personal or work/school, on every plan including Free. The GitHub provider is blocked by a route rule so only Microsoft sign-in is offered. |
 | D3 | Real-time updates | **Cheap version polling** (about every 2 s) in v1; **Azure Web PubSub** is a later optional upgrade | Web PubSub's free tier allows only 20 concurrent connections, too few for 50 players plus screens, and the paid tier costs money. Polling is free-tier friendly and still feels near-instant (see section 2). |
 | D4 | Backend runtime | **TypeScript** everywhere (React front end, Azure Functions API) | One language, shared types for API messages. |
-| D5 | Environments | One `prod` environment (the Static Web App), pull-request preview environments for review, and local development (Azurite + SWA CLI) | Keeps Azure cost at zero. |
+| D5 | Environments | One `prod` environment (the Static Web App), pull-request preview environments for review, and local development (Azurite + Azure Functions Core Tools; the SWA CLI was not needed and was removed) | Keeps Azure cost at zero. |
 | D6 | CI/CD | **GitHub Actions**: every push to `main` builds, tests and deploys automatically | See section 7. |
 
 Everything runs on free tiers; the only cost is a few cents of Table Storage transactions per game.
@@ -182,7 +182,7 @@ Each milestone ends with something you can run and review.
 
 | M | Goal | Done when |
 |---|------|-----------|
-| **M0** | Project skeleton + CI | Vite app and Functions API run locally with Azurite and the SWA CLI; `ci-cd.yml` runs lint, type-check, tests and build on every push and pull request (deploy job added in M1). |
+| **M0** | Project skeleton + CI | Vite app and Functions API run locally with Azurite and Azure Functions Core Tools; `ci-cd.yml` runs lint, type-check, tests and build on every push and pull request (deploy job added in M1). |
 | **M1** | Azure foundation, CD and admin sign-in | Bicep creates the resource group, storage account and Free Static Web App in a US region; the deployment token is stored as a GitHub secret; **a push to `main` deploys automatically** with a smoke test and PR previews; admin can sign in with a personal **and** a work Microsoft account; empty "My games" page is live. |
 | **M2** | Games and participants | Admin creates/deletes games with a unique 6-digit code; `.txt` upload and add/delete of participants with distinct-name enforcement; expiry set to 3 days and extendable. |
 | **M3** | Player experience | Join with code, pick name, add connection with existing or new topic, see own connections, delete with confirmation; all server-side rules enforced. |
