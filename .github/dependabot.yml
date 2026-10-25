@@ -16,6 +16,10 @@ updates:
       # The type definitions follow the Node.js version the code runs on (20 on Azure, 22 in CI).
       - dependency-name: '@types/node'
         update-types: ['version-update:semver-major']
+      # jsdom 30 needs Node.js 22.22.2 or newer, but the README promises Node.js 20 or newer to contributors.
+      # Remove this rule when the minimum Node.js version is raised.
+      - dependency-name: jsdom
+        update-types: ['version-update:semver-major']
   - package-ecosystem: github-actions
     directory: /
     schedule:
