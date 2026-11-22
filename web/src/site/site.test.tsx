@@ -83,9 +83,11 @@ describe('search engine metadata of every public page', () => {
     const before = repo.public;
     try {
       repo.public = false;
-      expect(headTags(PAGES[0]!, ORIGIN)).not.toContain('codeRepository');
+      expect(headTags(PAGES[0]!, ORIGIN)).not.toContain(SITE.repo.url);
       repo.public = true;
-      expect(headTags(PAGES[0]!, ORIGIN)).toContain('codeRepository');
+      expect(headTags(PAGES[0]!, ORIGIN)).toContain(SITE.repo.url);
+      // codeRepository is not a property of a WebApplication, so it must never appear
+      expect(headTags(PAGES[0]!, ORIGIN)).not.toContain('codeRepository');
     } finally {
       repo.public = before;
     }
