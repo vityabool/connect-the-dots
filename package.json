@@ -23,7 +23,8 @@
     "preview:prod": "npm run build && node scripts/serve-dist.mjs",
     "check": "npm run lint && npm run typecheck && npm run test && npm run build",
     "check:site": "node scripts/check-site.mjs",
-    "licenses": "node scripts/licenses.mjs"
+    "licenses": "node scripts/licenses.mjs",
+    "stats": "node scripts/stats.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
