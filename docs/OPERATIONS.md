@@ -28,6 +28,22 @@ How the system is deployed, run and checked. For the facilitator's guide see [AD
 - Azure portal: Static Web App > Functions / Monitoring; Storage account > Insights.
 - After a deployment: open the site, sign in at `/admin`, create a game, join from a phone with the code, delete the game.
 
+## Usage statistics
+
+`npm run stats` prints how much the site is used and whether games are played (`-- --days 90` for a longer period, `-- --json` for
+machine-readable output). It runs on the operator's computer with the operator's own logins (the Azure CLI with access to the resource
+group, and the GitHub CLI as the repository owner), needs no keys in the repository and only reads.
+
+| Section | Source | What it tells you |
+|---------|--------|-------------------|
+| Website | Azure platform counters of the Static Web App | Requests per day (every script and image counts, so one visit is about 10 to 20 hits, and search-engine robots are included), API calls and errors, data sent. API calls above a baseline of about 1 a day (the cleanup job) mean people were playing |
+| Games | Row counts in the Table Storage tables | Games stored, participants, topics and connections, how many players made a connection, and per game how long the play lasted. Only identifiers and dates are read; names, topics, game names, join codes and addresses are never read or printed. Games are deleted 30 days after they expire, so older games are gone |
+| Repository | GitHub traffic API (owner only) | Stars, forks, views and clones of the last 14 days, referrers, release downloads, and whether the daily cleanup workflow is running |
+
+**There are no unique-visitor numbers, and none can be made without adding analytics,** which the privacy policy rules out (no analytics,
+no tracking, no client addresses stored). Do not add a web-analytics script; if you ever want visitor numbers, the privacy policy, the
+terms and the content security policy have to change together. Azure keeps the platform counters for 93 days.
+
 ## Data retention (daily cleanup)
 
 - Expired games are closed to players straight away but stay in storage for 30 days, so the facilitator can still look at the results. After that the daily job deletes the game with its participants, topics and connections, plus rate-limit counters older than a day and index rows that point to games that no longer exist (`api/src/services/cleanup.ts`).
