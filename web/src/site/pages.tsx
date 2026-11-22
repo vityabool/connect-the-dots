@@ -79,7 +79,8 @@ export const PAGES: readonly SitePage[] = [
         image: absoluteUrl(origin, OG_IMAGE_PATH),
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
         license: SITE.license.url,
-        ...(SITE.repo.public ? { codeRepository: SITE.repo.url, sameAs: [SITE.repo.url] } : {}),
+        // `codeRepository` belongs to SoftwareSourceCode, not to a WebApplication, so only `sameAs` points to the repository.
+        ...(SITE.repo.public ? { sameAs: [SITE.repo.url] } : {}),
       },
     ],
   },
